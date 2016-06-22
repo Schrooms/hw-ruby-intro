@@ -35,20 +35,43 @@ def hello(name)
   "Hello, #{name}"
 end
 
-puts hello(nil)
-
 def starts_with_consonant? s
   # YOUR CODE HERE
-  return false if s.empty?
-  not /\A[AEIOU[^[:alpha:]]]/i =~ s
+  (/\A[^AEIOU[^[:alpha:]]]/i =~ s) != nil
 end
+#0. Define a method `binary_multiple_of_4?(s)` that takes a string and returns 
+# true if the string represents a binary number that is a multiple of 4. 
+# NOTE: be sure it returns false if the string is not a valid binary number!  
+#Run associated tests via:  
+# `$ rspec -e '#binary_multiple_of_4?' spec/part2_spec.rb`
 
 def binary_multiple_of_4? s
   # YOUR CODE HERE
+  /^[01]*00$|^0$/ =~s
 end
 
 # Part 3
 
 class BookInStock
-# YOUR CODE HERE
+  
+  attr_accessor :isbn
+  attr_accessor :price
+  
+  def initialize(isbn, price)
+    
+    raise ArgumentError.new('isbn cannot be empty') if isbn.empty?
+    raise ArgumentError.new('price must be >0') if price <= 0
+    
+    @isbn = isbn
+    @price = price
+  end
+  
+  def price_as_string
+    '$%0.2f' % price
+  end
+  
 end
+
+
+@book = BookInStock.new('isbn1', 33.8)
+puts @book.price_as_string
